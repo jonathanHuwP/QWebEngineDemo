@@ -39,9 +39,6 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
         self.make_document()
 
         view = qe.QWebEngineView()
-        #url = qc.QUrl("https://www.bbc.co.uk/news")
-        #view.setUrl(url)
-        view.setHtml(self._doc.toHtml())
         self._scrollArea.setWidget(view)
 
     def make_document(self):
@@ -54,9 +51,56 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
         html_string = "<h1>The Title</h1>"
         self._doc.setHtml(html_string)
 
+    @qc.pyqtSlot()
+    def load_web_page(self):
+        """
+        load a web page
+        """
+        reply = qw.QInputDialog.getText(self,
+                                        "Project Name",
+                                        "Proj Name",
+                                        qw.QLineEdit.Normal,
+                                        "https://www.bbc.co.uk/news")
+        if not reply[1]:
+            return
+
+        self._scrollArea.widget.setUrl(qc.QUrl(reply[0]))
+
+    @qc.pyqtSlot()
+    def load_demo(self):
+        """
+        load the hard coded demonstration document
+        """
+        self._scrollArea.widget().setHtml(self._doc.toHtml())
+
+    @qc.pyqtSlot()
+    def save_demo_html(self):
+        """
+        save the hard coded demonstration document as a html file
+        """
+        utf = 'utf-8'
+        file_types = "Hypertext Markup Language (*.html);;All files (*.*)"
+        file_path, _ = qw.QFileDialog.getSaveFileName(self,
+                                                     "Save Demonstration As Html",
+                                                     "document",
+                                                     file_types)
+
+        if file_path is None or file_path == '':
+            return
+
+        # construct a python byte array out of sting "utf-8" using "utf-8" as encoding
+        encoding_py = bytearray(utf, utf)
+
+        # construct a Qt byte array object from the python (you don't have to do this step)
+        encoding = qc.QByteArray(encoding_py)
+
+        with open(file_path, 'w') as out_file:
+            out_file.write(self._doc.toHtml(encoding))
+
+    @qc.pyqtSlot()
     def save_image(self):
         """
-        callback for saving the contents a png file
+        callback for saving the web engine's contents as a png file
         """
         file_types = "Portable Network Graphics PNG (*.png);;All files (*.*)"
         file_path, _ = qw.QFileDialog.getSaveFileName(self,
@@ -72,9 +116,10 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
         if pixmap is not None:
             pixmap.save(file_path)
 
+    @qc.pyqtSlot()
     def save_html(self):
         """
-        callback for saving the contents a HTML file
+        callback for saving the web engine's contents as a HTML file
         """
         file_types = "Hypertext Markup Language (*.html);;All files (*.*)"
         file_path, _ = qw.QFileDialog.getSaveFileName(self,
@@ -92,9 +137,10 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
 
         self._scrollArea.widget().page().toHtml(file_write)
 
+    @qc.pyqtSlot()
     def save_view_pdf(self):
         """
-        callback for saving the contents a PDF file, using the web engine itself
+        callback for saving the web engine's contents a PDF file
         """
         file_types = "PDF (*.pdf);;All files (*.*)"
         file_path, _ = qw.QFileDialog.getSaveFileName(self,
@@ -107,6 +153,7 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
 
         self._scrollArea.widget().page().printToPdf(file_path)
 
+    @qc.pyqtSlot()
     def save_doc_pdf(self):
         """
         callback for saving the contents a PDF file, using a QPrinter

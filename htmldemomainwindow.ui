@@ -47,9 +47,13 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="_actionLoad_Page"/>
+    <addaction name="_actionLoad_Demo"/>
+    <addaction name="separator"/>
     <addaction name="_actionSave_Html"/>
     <addaction name="_actionSave_PDF_1"/>
     <addaction name="_actionSave_PDF_2"/>
+    <addaction name="_actionSave_Demo_Html"/>
     <addaction name="_actionSave_Image"/>
     <addaction name="separator"/>
     <addaction name="_actionExit"/>
@@ -59,12 +63,12 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="_actionSave_PDF_1">
    <property name="text">
-    <string>Save PDF 1</string>
+    <string>Save View pdf</string>
    </property>
   </action>
   <action name="_actionSave_Html">
    <property name="text">
-    <string>Save Html</string>
+    <string>Save View Html</string>
    </property>
   </action>
   <action name="_actionSave_Image">
@@ -79,7 +83,22 @@
   </action>
   <action name="_actionSave_PDF_2">
    <property name="text">
-    <string>Save PDF 2</string>
+    <string>Save Demo pdf</string>
+   </property>
+  </action>
+  <action name="_actionLoad_Page">
+   <property name="text">
+    <string>Load Page</string>
+   </property>
+  </action>
+  <action name="_actionLoad_Demo">
+   <property name="text">
+    <string>Load Demo</string>
+   </property>
+  </action>
+  <action name="_actionSave_Demo_Html">
+   <property name="text">
+    <string>Save Demo Html</string>
    </property>
   </action>
  </widget>
@@ -154,6 +173,54 @@
    <signal>triggered()</signal>
    <receiver>HtmlDemoMainWindow</receiver>
    <slot>save_doc_pdf()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>_actionLoad_Page</sender>
+   <signal>triggered()</signal>
+   <receiver>HtmlDemoMainWindow</receiver>
+   <slot>load_web_page()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>_actionLoad_Demo</sender>
+   <signal>triggered()</signal>
+   <receiver>HtmlDemoMainWindow</receiver>
+   <slot>load_demo()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>_actionSave_Demo_Html</sender>
+   <signal>triggered()</signal>
+   <receiver>HtmlDemoMainWindow</receiver>
+   <slot>save_demo_html()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
