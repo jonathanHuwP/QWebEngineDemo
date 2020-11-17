@@ -51,20 +51,13 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
                 a HTML string
         """
 
-        path = pathlib.Path(os.getcwd()).joinpath("resources").joinpath("camera.png")
+        path = pathlib.Path(os.getcwd()).joinpath("resources").joinpath("demo_figure.png")
         height = 512
         width = 512
-        
-        # camera = sk_data.camera()
-        # height, width = camera.shape
-        # bytes_per_line = width
-        # image = qg.QImage(camera, width, height, bytes_per_line, qg.QImage.Format_Grayscale8)
-        # pixmap = qg.QPixmap.fromImage(image)
-        # pixmap.save(str(path))
-        
+
         html = "<h1>The Tlite</h1>"
         html += "<h2>HTML Image</h2>"
-        html += f"<img src=\"{path}\" alt=\"Trulli\" width=\"{width}\" height=\"{height}\">"
+        html += f"<img src=\"{path}\" width=\"{width}\" height=\"{height}\">"
         self._doc.setHtml(html)
 
     @qc.pyqtSlot()
@@ -80,16 +73,16 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
         if not reply[1]:
             return
 
-        self._scrollArea.widget.setUrl(qc.QUrl(reply[0]))
+        self._scrollArea.widget().setUrl(qc.QUrl(reply[0]))
 
     @qc.pyqtSlot()
     def load_demo(self):
         """
         load the hard coded demonstration document
         """
-        # dummy QUrl is required to allow QWebEngine to access local files
+        # a QUrl to local file is required to allow QWebEngine to access local files
         # the altrnativ is to pass "--disable-web-security" as an argument
-        # to QCoreApplication on startup
+        # to QCoreApplication on startup, which leavs the application at risk
         self._scrollArea.widget().setHtml(self._doc.toHtml(), qc.QUrl("file://"))
 
     @qc.pyqtSlot()

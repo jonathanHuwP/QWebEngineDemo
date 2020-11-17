@@ -52,8 +52,10 @@
     <addaction name="separator"/>
     <addaction name="_actionSave_Html"/>
     <addaction name="_actionSave_PDF_1"/>
+    <addaction name="separator"/>
     <addaction name="_actionSave_PDF_2"/>
     <addaction name="_actionSave_Demo_Html"/>
+    <addaction name="separator"/>
     <addaction name="_actionSave_Image"/>
     <addaction name="separator"/>
     <addaction name="_actionExit"/>
