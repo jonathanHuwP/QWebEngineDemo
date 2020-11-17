@@ -13,14 +13,12 @@ This work was funded by Joanna Leng's EPSRC funded RSE Fellowship (EP/R025819/1)
 @author: j.h.pickering@leeds.ac.uk and j.leng@leeds.ac.uk
 """
 # set up linting conditions
-# pylint: disable = too-many-public-methods
+# pylint: disable = too-few-public-methods
 # pylint: disable = c-extension-no-member
+# pylint: disable = import-error
 
 import PyQt5.QtWidgets as qw
-import PyQt5.QtGui as qg
 import PyQt5.QtCore as qc
-import PyQt5.QtWebEngineWidgets as qe
-import PyQt5.QtPrintSupport as qp
 
 from webenginedemo.gui.webenginedemomainwindow import WebEngineDemoMainWindow
 
