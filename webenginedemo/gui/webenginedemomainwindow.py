@@ -26,9 +26,9 @@ import PyQt5.QtCore as qc
 import PyQt5.QtWebEngineWidgets as qe
 import PyQt5.QtPrintSupport as qp
 
-from Ui_htmldemomainwindow import Ui_HtmlDemoMainWindow
+from webenginedemo.gui.Ui_webenginedemomainwindow import Ui_WebEngineDemoMainWindow
 
-class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
+class WebEngineDemoMainWindow(qw.QMainWindow, Ui_WebEngineDemoMainWindow):
     """
     class providing a crude web viewer
     """
@@ -185,23 +185,3 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
         printer.setOutputFileName(file_path)
 
         self._doc.print(printer)
-
-class HtmlDemoApp(qw.QApplication):
-    """
-    app for the demo
-    """
-
-    def __init__(self, args):
-        super().__init__(args)
-        self.setOrganizationName("QtExamples")
-        self.setApplicationName("HtmlDemoApp")
-        self.setApplicationVersion("B0.0")
-        self.setAttribute(qc.Qt.AA_EnableHighDpiScaling)
-
-        window = HtmlDemoMainWindow()
-        window.show()
-
-        self.exec_()    # enter event loop
-
-if __name__ == "__main__":
-    application = HtmlDemoApp(sys.argv)
