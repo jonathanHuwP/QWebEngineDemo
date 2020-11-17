@@ -17,6 +17,8 @@ This work was funded by Joanna Leng's EPSRC funded RSE Fellowship (EP/R025819/1)
 # pylint: disable = c-extension-no-member
 
 import sys
+import os
+import pathlib
 
 import PyQt5.QtWidgets as qw
 import PyQt5.QtGui as qg
@@ -48,8 +50,22 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
             Returns:
                 a HTML string
         """
-        html_string = "<h1>The Title</h1>"
-        self._doc.setHtml(html_string)
+
+        path = pathlib.Path(os.getcwd()).joinpath("resources").joinpath("camera.png")
+        height = 512
+        width = 512
+        
+        # camera = sk_data.camera()
+        # height, width = camera.shape
+        # bytes_per_line = width
+        # image = qg.QImage(camera, width, height, bytes_per_line, qg.QImage.Format_Grayscale8)
+        # pixmap = qg.QPixmap.fromImage(image)
+        # pixmap.save(str(path))
+        
+        html = "<h1>The Tlite</h1>"
+        html += "<h2>HTML Image</h2>"
+        html += f"<img src=\"{path}\" alt=\"Trulli\" width=\"{width}\" height=\"{height}\">"
+        self._doc.setHtml(html)
 
     @qc.pyqtSlot()
     def load_web_page(self):
@@ -71,7 +87,10 @@ class HtmlDemoMainWindow(qw.QMainWindow, Ui_HtmlDemoMainWindow):
         """
         load the hard coded demonstration document
         """
-        self._scrollArea.widget().setHtml(self._doc.toHtml())
+        # dummy QUrl is required to allow QWebEngine to access local files
+        # the altrnativ is to pass "--disable-web-security" as an argument
+        # to QCoreApplication on startup
+        self._scrollArea.widget().setHtml(self._doc.toHtml(), qc.QUrl("file://"))
 
     @qc.pyqtSlot()
     def save_demo_html(self):
